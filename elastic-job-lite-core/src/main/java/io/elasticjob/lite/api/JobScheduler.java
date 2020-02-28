@@ -17,7 +17,6 @@
 
 package io.elasticjob.lite.api;
 
-import com.google.common.base.Optional;
 import io.elasticjob.lite.api.listener.AbstractDistributeOnceElasticJobListener;
 import io.elasticjob.lite.api.listener.ElasticJobListener;
 import io.elasticjob.lite.api.script.ScriptJob;
@@ -36,6 +35,7 @@ import io.elasticjob.lite.internal.schedule.LiteJob;
 import io.elasticjob.lite.internal.schedule.LiteJobFacade;
 import io.elasticjob.lite.internal.schedule.SchedulerFacade;
 import io.elasticjob.lite.reg.base.CoordinatorRegistryCenter;
+import io.elasticjob.lite.util.Optional;
 import lombok.Getter;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -49,7 +49,7 @@ import java.util.Properties;
 
 /**
  * 作业调度器.
- * 
+ *
  * @author zhangliang
  * @author caohao
  */
@@ -73,7 +73,7 @@ public class JobScheduler {
         this(regCenter, liteJobConfig, new JobEventBus(), elasticJobListeners);
     }
     
-    public JobScheduler(final CoordinatorRegistryCenter regCenter, final LiteJobConfiguration liteJobConfig, final JobEventConfiguration jobEventConfig, 
+    public JobScheduler(final CoordinatorRegistryCenter regCenter, final LiteJobConfiguration liteJobConfig, final JobEventConfiguration jobEventConfig,
                         final ElasticJobListener... elasticJobListeners) {
         this(regCenter, liteJobConfig, new JobEventBus(jobEventConfig), elasticJobListeners);
     }
@@ -127,7 +127,7 @@ public class JobScheduler {
     }
     
     protected Optional<ElasticJob> createElasticJobInstance() {
-        return Optional.absent();
+        return Optional.empty();
     }
     
     private Scheduler createScheduler() {
