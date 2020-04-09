@@ -17,11 +17,14 @@
 
 package io.elasticjob.lite.console;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
+
 import io.elasticjob.lite.console.filter.GlobalConfigurationFilter;
 import io.elasticjob.lite.console.restful.JobOperationRestfulApi;
 import io.elasticjob.lite.lifecycle.restful.RestfulServer;
 import io.elasticjob.lite.lifecycle.security.WwwAuthFilter;
+import io.prometheus.client.exporter.HTTPServer;
+import io.prometheus.client.hotspot.DefaultExports;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +49,16 @@ public final class ConsoleBootstrap {
     //CHECKSTYLE:OFF
     public static void main(final String[] args) throws Exception {
     //CHECKSTYLE:ON
+    	boolean prometheusEnable = true;
+    	if (prometheusEnable) {
+        	int port = 8900;
+        	DefaultExports.initialize();
+        	new HTTPServer(port);
+        	log.info("prometheus exporter started, port: {}", port);
+        }else {
+        	log.info("prometheus exporter disabled");
+        }
+    	
         int port = 8899;
         if (1 == args.length) {
             try {
