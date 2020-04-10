@@ -17,8 +17,8 @@
 
 package io.elasticjob.lite.console;
 
-import com.google.common.base.Optional;
 import io.elasticjob.lite.console.filter.GlobalConfigurationFilter;
+import io.elasticjob.lite.console.prometheus.Exporter;
 import io.elasticjob.lite.console.restful.JobOperationRestfulApi;
 import io.elasticjob.lite.lifecycle.restful.RestfulServer;
 import io.elasticjob.lite.lifecycle.security.WwwAuthFilter;
@@ -27,6 +27,7 @@ import io.prometheus.client.hotspot.DefaultExports;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import com.google.common.base.Optional;
 
 /**
  * 界面启动器.
@@ -52,6 +53,7 @@ public final class ConsoleBootstrap {
         if (prometheusEnable) {
             int port = 8900;
             DefaultExports.initialize();
+            new Exporter().register();
             new HTTPServer(port);
             log.info("prometheus exporter started, port: {}", port);
         } else {
