@@ -19,6 +19,7 @@ package io.elasticjob.lite.console;
 
 import io.elasticjob.lite.console.filter.GlobalConfigurationFilter;
 import io.elasticjob.lite.console.prometheus.Exporter;
+import io.elasticjob.lite.console.prometheus.ExporterProperties;
 import io.elasticjob.lite.console.restful.JobOperationRestfulApi;
 import io.elasticjob.lite.lifecycle.restful.RestfulServer;
 import io.elasticjob.lite.lifecycle.security.WwwAuthFilter;
@@ -49,9 +50,10 @@ public final class ConsoleBootstrap {
     //CHECKSTYLE:OFF
     public static void main(final String[] args) throws Exception {
     //CHECKSTYLE:ON
-        boolean prometheusEnable = true;
-        if (prometheusEnable) {
-            int port = 8900;
+        if (ExporterProperties
+                .getPropertyBoolean("exporter.enable")) {
+            int port = ExporterProperties.getPropertyInt(
+                    "exporter.port", 8900);
             DefaultExports.initialize();
             new Exporter().register();
             new HTTPServer(port);

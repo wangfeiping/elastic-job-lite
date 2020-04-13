@@ -13,20 +13,24 @@ import io.elasticjob.lite.lifecycle.domain.ShardingInfo;
 import io.prometheus.client.Collector;
 import io.prometheus.client.GaugeMetricFamily;
 import com.google.common.base.Optional;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Exporter extends Collector {
 
     private JobStatisticsAPI jobApi = JobAPIFactory
             .createJobStatisticsAPI(
-                    "127.0.0.1:2181",
-                    "elastic-job-spring-boot-stater-demo",
-                    Optional.fromNullable(""));
+                    ExporterProperties.getProperty("zookeeper.connect"),
+                    ExporterProperties.getProperty("namespace"),
+                    Optional.fromNullable(ExporterProperties
+                            .getProperty("digest")));
 
     private ShardingStatisticsAPI shardApi = JobAPIFactory
             .createShardingStatisticsAPI(
-                    "127.0.0.1:2181",
-                    "elastic-job-spring-boot-stater-demo",
-                    Optional.fromNullable(""));
+                    ExporterProperties.getProperty("zookeeper.connect"),
+                    ExporterProperties.getProperty("namespace"),
+                    Optional.fromNullable(ExporterProperties
+                            .getProperty("digest")));
     
     @Override
     public List<MetricFamilySamples> collect() {
