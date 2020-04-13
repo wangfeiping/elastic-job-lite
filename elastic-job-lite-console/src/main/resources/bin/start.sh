@@ -31,4 +31,8 @@ DEPLOY_DIR=`pwd`
 LIB_DIR=${DEPLOY_DIR}/lib/*
 CONSOLE_MAIN=io.elasticjob.lite.console.ConsoleBootstrap
 
-java -classpath ${LIB_DIR}:. ${CONSOLE_MAIN} $port
+mkdir -p /apps/logs/elasticjob-exporter
+
+#java -classpath ${LIB_DIR}:. ${CONSOLE_MAIN} $port
+nohub java -classpath ${LIB_DIR}:. ${CONSOLE_MAIN} $port \
+    >> /apps/logs/elasticjob-exporter/elasticjob-exporter.log 2>&1 &

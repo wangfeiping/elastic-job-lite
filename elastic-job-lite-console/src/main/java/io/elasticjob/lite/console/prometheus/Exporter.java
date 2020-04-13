@@ -54,13 +54,12 @@ public class Exporter extends Collector {
         GaugeMetricFamily jobsGauge = new GaugeMetricFamily(
                 "all_elastic_jobs",
                 "all elastic jobs, OK 0, CRASHED 1, DISABLED 2, SHARDING_FLAG 3",
-                Arrays.asList("name", "shard", "status"));
+                Arrays.asList("name", "shard"));
         for (; jobs.hasNext();) {
             JobBriefInfo job = jobs.next();
             jobsGauge.addMetric(Arrays.asList(
                     job.getJobName(),
-                    "" + job.getShardingTotalCount(),
-                    job.getStatus().name()),
+                    "" + job.getShardingTotalCount()),
                     job.getStatus().ordinal());
             
             Iterator<ShardingInfo> it = shardApi
