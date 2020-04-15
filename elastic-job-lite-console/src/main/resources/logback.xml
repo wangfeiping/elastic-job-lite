@@ -45,9 +45,13 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
           <level>${log.error.log.level}</level>
         </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.directory}${log.context.name}-error.%d{yyyyMMdd}.log</fileNamePattern>
+        <file>${log.directory}${log.context.name}.log.error</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.directory}backup/${log.context.name}.log.error.%d{yyyyMMdd}.%i</fileNamePattern>
             <maxHistory>${log.maxHistory}</maxHistory>
+            <maxFileSize>512MB</maxFileSize>
+            <totalSizeCap>5GB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder charset="${log.charset}">
             <pattern>${log.pattern}</pattern>
