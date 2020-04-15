@@ -34,5 +34,5 @@ CONSOLE_MAIN=io.elasticjob.lite.console.ConsoleBootstrap
 mkdir -p /apps/logs/elasticjob-exporter
 
 #java -classpath ${LIB_DIR}:. ${CONSOLE_MAIN} $port
-nohub java -classpath ${LIB_DIR}:. ${CONSOLE_MAIN} $port \
+nohup java -classpath ${LIB_DIR}:. ${CONSOLE_MAIN} $port \
     >> /apps/logs/elasticjob-exporter/elasticjob-exporter.log 2>&1 &
