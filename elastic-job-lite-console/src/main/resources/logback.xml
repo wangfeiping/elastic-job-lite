@@ -22,7 +22,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.directory}${log.context.name}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.directory}${log.context.name}.log.%d{yyyyMMdd}.%i</fileNamePattern>
+            <fileNamePattern>${log.directory}backup/${log.context.name}.log.%d{yyyyMMdd}.%i</fileNamePattern>
             <maxHistory>${log.maxHistory}</maxHistory>
             <maxFileSize>512MB</maxFileSize>
             <totalSizeCap>5GB</totalSizeCap>
@@ -46,7 +46,7 @@
           <level>${log.error.log.level}</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.directory}${log.context.name}-error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.directory}${log.context.name}-error.%d{yyyyMMdd}.log</fileNamePattern>
             <maxHistory>${log.maxHistory}</maxHistory>
         </rollingPolicy>
         <encoder charset="${log.charset}">
