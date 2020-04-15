@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="log.directory" value="logs/" />
-    <property name="log.context.name" value="dd-job-console" />
+    <property name="log.directory" value="/apps/logs/elasticjob-exporter/" />
+    <property name="log.context.name" value="elasticjob-exporter" />
     <property name="log.charset" value="UTF-8" />
-    <property name="log.maxHistory" value="30" />
+    <property name="log.maxHistory" value="3" />
     <property name="log.pattern" value="[%-5level] %date --%thread-- [%logger] %msg %n" />
     <property name="log.error.log.level" value="WARN" />
     <property name="log.async.queue.size" value="1024" />
@@ -13,15 +13,20 @@
     
     <contextName>${log.context.name}</contextName>
     
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder charset="${log.charset}">
             <pattern>${log.pattern}</pattern>
         </encoder>
     </appender>
+    -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.directory}${log.context.name}-log.%d{yyyy-MM-dd}.log</fileNamePattern>
+        <file>${log.directory}${log.context.name}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.directory}${log.context.name}.log.%d{yyyyMMdd}.%i</fileNamePattern>
             <maxHistory>${log.maxHistory}</maxHistory>
+            <maxFileSize>512MB</maxFileSize>
+            <totalSizeCap>5GB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder charset="${log.charset}">
             <pattern>${log.pattern}</pattern>
@@ -51,7 +56,7 @@
     
     <root>
         <level value="INFO" />
-        <appender-ref ref="STDOUT" />
+        <!-- appender-ref ref="STDOUT" /> -->
         <appender-ref ref="ASYNC_FILE" />
         <appender-ref ref="ERROR" />
     </root>
